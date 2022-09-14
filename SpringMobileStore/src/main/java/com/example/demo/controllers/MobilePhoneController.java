@@ -105,11 +105,11 @@ public class MobilePhoneController {
 	@Operation(summary = "Get the all phones by brand name")
 	public ResponseEntity<?> get(@PathVariable(value = "name") String brandName){
 		ResponseEntity response = null;
-//		try {
+		try {
 			response = new ResponseEntity(service.getMobilePhoneByBrandName(brandName), HttpStatus.OK);
-//		}catch(MobilePhoneNotFoundException e) {
-//			response = new ResponseEntity(e.getMessage(), HttpStatus.OK);
-//		}
+		}catch(MobilePhoneNotFoundException e) {
+			response = new ResponseEntity(e.getMessage(), HttpStatus.OK);
+		}
 		return response;
 	}
 	
@@ -118,11 +118,11 @@ public class MobilePhoneController {
 	@Operation(summary = "Get the all phones by model name")
 	public ResponseEntity<?> getPhoneByModelName(@PathVariable(value = "name") String modelName){
 		ResponseEntity response = null;
-//		try {
+		try {
 			response = new ResponseEntity(service.getMobilePhoneByModelName(modelName), HttpStatus.OK);
-//		}catch(MobilePhoneNotFoundException e) {
-//			response = new ResponseEntity(e.getMessage(), HttpStatus.OK);
-//		}
+		}catch(MobilePhoneNotFoundException e) {
+			response = new ResponseEntity(e.getMessage(), HttpStatus.OK);
+		}
 		return response;
 	}
 	
@@ -132,11 +132,11 @@ public class MobilePhoneController {
 	@Operation(summary = "Get the all phones by processors")
 	public ResponseEntity<?> getPhoneByProcessors(@PathVariable(value = "name") String name){
 		ResponseEntity response = null;
-//		try {
+		try {
 			response = new ResponseEntity(service.getByProcessor(name), HttpStatus.OK);
-//		}catch(MobilePhoneNotFoundException e) {
-//			response = new ResponseEntity(e.getMessage(), HttpStatus.OK);
-//		}
+		}catch(MobilePhoneNotFoundException e) {
+			response = new ResponseEntity(e.getMessage(), HttpStatus.OK);
+		}
 		return response;
 	}
 	
@@ -145,11 +145,7 @@ public class MobilePhoneController {
 	@Operation(summary = "Get the all black and blue phones")
 	public ResponseEntity<?> getPhoneByColor(){
 		ResponseEntity response = null;
-//		try {
-			response = new ResponseEntity(service.getByColor(), HttpStatus.OK);
-//		}catch(MobilePhoneNotFoundException e) {
-//			response = new ResponseEntity(e.getMessage(), HttpStatus.OK);
-//		}
+		response = new ResponseEntity(service.getByColor(), HttpStatus.OK);
 		return response;
 	}
 	
@@ -158,11 +154,7 @@ public class MobilePhoneController {
 	@Operation(summary = "Get the total number of phones having unique model names")
 	public ResponseEntity<?> getTotalPhones(){
 		ResponseEntity response = null;
-//		try {
-			response = new ResponseEntity(service.getMobilePhones(), HttpStatus.OK);
-//		}catch(MobilePhoneNotFoundException e) {
-//			response = new ResponseEntity(e.getMessage(), HttpStatus.OK);
-//		}
+		response = new ResponseEntity(service.getMobilePhones(), HttpStatus.OK);	
 		return response;
 	}
 	
@@ -171,14 +163,50 @@ public class MobilePhoneController {
 	@GetMapping("/phones/total/{cost}")
 	@Operation(summary = "Get the total number of phones by cost")
 	public ResponseEntity<?> getTotalPhonesByCost(@PathVariable(value = "cost") double cost){
-		ResponseEntity response = null;
-//		try {
-			response = new ResponseEntity(service.getMobilePhone(cost), HttpStatus.OK);
-//		}catch(MobilePhoneNotFoundException e) {
-//			response = new ResponseEntity(e.getMessage(), HttpStatus.OK);
-//		}
+		ResponseEntity<?> response = null;
+		response = new ResponseEntity<>(service.getMobilePhone(cost), HttpStatus.OK);
 		return response;
 	}
 	
+	
+	//Get all Mobile phone Dtos - GET method
+	@GetMapping("/phones/dtos")
+	@Operation(summary = "To get the list of all dtos")
+	public ResponseEntity<?> getPhoneDtos(){
+		ResponseEntity response = null;
+		try {
+			response = new ResponseEntity(service.getAllMobilePhones(), HttpStatus.OK);
+		}catch(MobilePhoneNotFoundException e) {
+			response = new ResponseEntity(e.getMessage(), HttpStatus.OK);
+		}
+		return response;
+	}
+	
+	
+	//Get mobile phone dtos by brand name - GET method
+	@GetMapping("/phones/dtos/brand/{name}")
+	@Operation(summary = "To get the dtos by brand name")
+	public ResponseEntity<?> getPhoneDtosByBrandName(@PathVariable(value = "name") String brandName){
+		ResponseEntity response = null;
+		try {
+			response = new ResponseEntity(service.getMobilePhoneDtoByBrandName(brandName), HttpStatus.OK);
+		}catch(MobilePhoneNotFoundException e) {
+			response = new ResponseEntity(e.getMessage(), HttpStatus.OK);
+		}
+		return response;
+	}
+	
+	//Get mobile phone dtos by brand name - GET method
+	@GetMapping("/phones/dtos/model/{name}")
+	@Operation(summary = "To get the dtos by model name")
+	public ResponseEntity<?> getPhoneDtosByModelName(@PathVariable(value = "name") String brandName){
+		ResponseEntity response = null;
+		try {
+			response = new ResponseEntity(service.getMobilePhoneDtoByModelName(brandName), HttpStatus.OK);
+		}catch(MobilePhoneNotFoundException e) {
+			response = new ResponseEntity(e.getMessage(), HttpStatus.OK);
+		}
+		return response;
+	}
 
 }
